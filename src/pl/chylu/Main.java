@@ -3,14 +3,15 @@ package pl.chylu;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        DaoUIText.loadUIList();
 
         boolean shouldContinue = true;
         while (shouldContinue) {
-            DaoService.menu();
+            DaoUIText.menu();
             int switchValue = ConsoleReader.readInt();
             switch (switchValue) {
                 case 1:
-                    DaoService.subMenu();
+                    DaoUIText.subMenu();
                     break;
                 case 2:
                     for (Cat cat : DaoCat.returnCatParameter()) {
@@ -19,20 +20,20 @@ public class Main {
                     System.out.println();
                     break;
                 case 3:
-                    DaoService.infoCatFighterers();
-                    DaoCat.fightCat(DaoService.chooseCatToFight(), DaoService.chooseCatToFight2());
+                    DaoUIText.infoCatFighterers();
+                    DaoCat.fightCat(DaoUIText.chooseCatToFight(), DaoUIText.chooseCatToFight2());
                     break;
                 case 4:
-                    DaoService.checkCatSizeList();
+                    DaoUIText.checkCatSizeList();
                     break;
                 case 5:
                     DaoCat.forceCleaningOfConsoles();
                 case 0:
-                    DaoService.getEndInfo();
+                    DaoUIText.getEndInfo();
                     shouldContinue = false;
                     break;
                 default:
-                    DaoService.errorChooseOptionMenu();
+                    DaoUIText.errorChooseOptionMenu();
                     break;
             }
         }

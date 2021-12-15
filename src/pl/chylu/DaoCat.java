@@ -13,15 +13,10 @@ public class DaoCat {
         return catList;
     }
     public static void fightCat (Cat cat, Cat cat2) throws InterruptedException {
-        if (cat == cat2) {
-            DaoService.falseToCloneCatInfo();
-        } else {
-            DaoService.fightCoreEngine(cat, cat2);
-        }
+        DaoUIText.fightCoreEngineUI(cat, cat2);
     }
 
     public static void forceCleaningOfConsoles() {
-        for (int i = 0; i < 20; i++)
-            System.out.println();
+        DaoUIText.forceCleaningOfConsoles();
     }
 }
