@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class DaoCat {
     public static List<Cat> catList = new ArrayList<>();
-    public static void addCat(Cat cat) throws Exception {
+    public static void addCat(Cat cat) {
         catList.add(cat);
     }
     public static List<Cat> returnCatParameter() {

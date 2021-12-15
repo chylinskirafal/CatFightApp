@@ -34,7 +34,7 @@ public class Main {
                     shouldContinue = false;
                     break;
                 default:
-                    System.out.println("Głupi jesteś? Masz wybrać cyfrę od 0 do 3!\n");
+                    System.out.println("Głupi jesteś? Masz wybrać cyfrę od 0 do 5!\n");
                     break;
             }
         }
