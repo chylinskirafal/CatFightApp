@@ -10,7 +10,7 @@ public class Cat {
         this.name = name;
         this.skill = skill;
         this.age = age;
-        hpCat = (5*skill) + (age > 8 ? 1 : 3);
+        hpCat = (2*skill) + (age > 8 ? 1 : 3) + 30;
     }
 
     public String getName() {
