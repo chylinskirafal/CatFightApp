@@ -5,47 +5,61 @@ import java.util.List;
 import java.util.Random;
 
 public class DaoUIText {
+    private static Random random = new Random();
+    private static double tempDamage;
+
     public static void fightCoreEngineUI(Cat cat, Cat cat2) throws InterruptedException {
         if (cat == cat2) {
             DaoUIText.falseToCloneCatInfo();
         } else {
-            Random random = new Random();
             int countWhoPouch = 0;
-            boolean fightContinue = true;
             int tempHpCat = cat.getHpCat();
             int tempHpCat2 = cat2.getHpCat();
+            boolean fightContinue = true;
             while (fightContinue) {
                 int chanceToPouch = random.nextInt(101);
-                if (chanceToPouch >= 50) {
-                    if ((countWhoPouch &1)==0) {
-                        tempHpCat2 = tempHpCat2 - ((cat.getSkill())/2);
-                        System.out.println(cat.getName() + " zadał " + ((cat.getSkill())/2) + " obrażeń kotowi " + cat2.getName() + ". Zostało mu już tylko " + tempHpCat2 +" życia.\n");
-                    } else {
-                        tempHpCat = tempHpCat - ((cat2.getSkill())/2);
-                        System.out.println(cat2.getName() + " zadał " + ((cat2.getSkill())/2) + " obrażeń kotowi " + cat.getName() + ". Zostało mu już tylko " + tempHpCat +" życia.\n");
-                    }
+                if ((countWhoPouch &1)==0) {
+                    damageToChanceToPouch(chanceToPouch, cat.getName(), cat.getSkill());
+                    tempHpCat2 = (int) (tempHpCat2 - tempDamage);
+                    System.out.println(cat.getName() + " zadał " + tempDamage + " obrażeń kotowi " + cat2.getName() + ". Zostało mu już tylko " + tempHpCat2 +" życia.\n");
                 } else {
-                    if ((countWhoPouch &1)==0) {
-                        System.out.println(cat.getName() + listDodgeText[random.nextInt(11)]);
-                    }
-                    else  {
-                        System.out.println(cat2.getName() + listDodgeText[random.nextInt(11)]);
-                    }
+                    damageToChanceToPouch(chanceToPouch, cat2.getName(), cat.getSkill());
+                    tempHpCat = (int) (tempHpCat - tempDamage);
+                    System.out.println(cat.getName() + " zadał " + tempDamage + " obrażeń kotowi " + cat2.getName() + ". Zostało mu już tylko " + tempHpCat +" życia.\n");
                 }
+
                 countWhoPouch++;
-                if (tempHpCat <= 0) {
-                    fightContinue = false;
-                    System.out.println("Kot " + cat2.getName() + " wygrał z kotem " + cat.getName() + " i zostało mu jeszcze " + tempHpCat2 + " życia.\n");
-                    cat2.setSkill(cat2.getSkill() + 1);
-                } else if (tempHpCat2 <= 0) {
-                    fightContinue = false;
-                    System.out.println("Kot " + cat.getName() + " wygrał z kotem " + cat2.getName() + " i zostało mu jeszcze " + tempHpCat + " życia.\n");
-                    cat.setSkill(cat.getSkill() + 1);
-                }
-                Thread.sleep(1000);
+                fightContinue = endFightCat(tempHpCat, tempHpCat2, cat.getSkill(), cat2.getSkill(), cat.getName(), cat2.getName());
+                Thread.sleep(1300);
             }
         }
     }
+    private static void damageToChanceToPouch(int chanceToPouch, String catName, int skillCat) {
+        if (chanceToPouch >= 40 && chanceToPouch< 60) {
+            tempDamage = skillCat / 3;
+        } else if (chanceToPouch >= 60 && chanceToPouch < 80) {
+            tempDamage = skillCat;
+        } else if (chanceToPouch >= 80 && chanceToPouch < 97) {
+            tempDamage = skillCat * 1.5;
+        } else if (chanceToPouch >= 97) {
+            tempDamage = skillCat * 3;
+        }
+        else {
+            System.out.println(catName + listDodgeText[random.nextInt(11)]);
+
+        }
+    }
+    private static boolean endFightCat(int tempHpCat, int tempHpCat2, int skillFirstCat, int skillSecondCat, String nameFirstCat, String nameSecondCat) {
+        if (tempHpCat <= 0) {
+            System.out.println("Kot " + nameSecondCat + " wygrał z kotem " + nameFirstCat + " i zostało mu jeszcze " + tempHpCat2 + " życia.\n");
+            return false;
+        } else if (tempHpCat2 <= 0) {
+            System.out.println("Kot " + nameFirstCat + " wygrał z kotem " + nameSecondCat + " i zostało mu jeszcze " + tempHpCat + " życia.\n");
+            return false;
+        } else
+            return true;
+    }
+
     public static void falseToCloneCatInfo() {
         System.out.println(infoTextList.get(10));}
     public static void checkCatSizeList() {

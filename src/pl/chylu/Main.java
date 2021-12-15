@@ -28,6 +28,7 @@ public class Main {
                     break;
                 case 5:
                     DaoCat.forceCleaningOfConsoles();
+                    break;
                 case 0:
                     DaoUIText.getEndInfo();
                     shouldContinue = false;

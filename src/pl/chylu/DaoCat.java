@@ -2,7 +2,6 @@ package pl.chylu;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class DaoCat {
     public static List<Cat> catList = new ArrayList<>();
