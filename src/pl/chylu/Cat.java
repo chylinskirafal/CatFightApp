@@ -4,7 +4,7 @@ public class Cat {
     private String name;
     private int skill;
     private int age;
-    public int hpCat;
+    private int hpCat;
 
     public Cat(String name, int skill, int age) {
         this.name = name;

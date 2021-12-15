@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class DaoUIText {
     private static Random random = new Random();
-    private static double tempDamage;
+    private static int tempDamage = 0;
 
     public static void fightCoreEngineUI(Cat cat, Cat cat2) throws InterruptedException {
         if (cat == cat2) {
@@ -17,36 +17,39 @@ public class DaoUIText {
             int tempHpCat2 = cat2.getHpCat();
             boolean fightContinue = true;
             while (fightContinue) {
-                int chanceToPouch = random.nextInt(101);
+                int chanceToPouch = random.nextInt(100);
                 if ((countWhoPouch &1)==0) {
-                    damageToChanceToPouch(chanceToPouch, cat.getName(), cat.getSkill());
-                    tempHpCat2 = (int) (tempHpCat2 - tempDamage);
-                    System.out.println(cat.getName() + " zadał " + tempDamage + " obrażeń kotowi " + cat2.getName() + ". Zostało mu już tylko " + tempHpCat2 +" życia.\n");
+                    damageToChanceToPouch(chanceToPouch, cat.getSkill());
+                    if (tempDamage != 0) {
+                        tempHpCat2 = tempHpCat2 - tempDamage;
+                        System.out.println(cat.getName() + " zadał " + tempDamage + " obrażeń kotowi " + cat2.getName() + ". Zostało mu już tylko " + tempHpCat2 +" życia.\n");
+                    } else {
+                        System.out.println(cat.getName() + listDodgeText[random.nextInt(12)]);
+                    }
                 } else {
-                    damageToChanceToPouch(chanceToPouch, cat2.getName(), cat.getSkill());
-                    tempHpCat = (int) (tempHpCat - tempDamage);
-                    System.out.println(cat.getName() + " zadał " + tempDamage + " obrażeń kotowi " + cat2.getName() + ". Zostało mu już tylko " + tempHpCat +" życia.\n");
+                    damageToChanceToPouch(chanceToPouch, cat.getSkill());
+                    if (tempDamage != 0) {
+                        tempHpCat2 = tempHpCat2 - tempDamage;
+                        System.out.println(cat2.getName() + " zadał " + tempDamage + " obrażeń kotowi " + cat.getName() + ". Zostało mu już tylko " + tempHpCat +" życia.\n");
+                    } else {
+                        System.out.println(cat2.getName() + listDodgeText[random.nextInt(12)]);
+                    }
                 }
 
-                countWhoPouch++;
+                countWhoPouch = countWhoPouch + 1;
                 fightContinue = endFightCat(tempHpCat, tempHpCat2, cat.getSkill(), cat2.getSkill(), cat.getName(), cat2.getName());
                 Thread.sleep(1300);
+                tempDamage = 0;
             }
         }
     }
-    private static void damageToChanceToPouch(int chanceToPouch, String catName, int skillCat) {
-        if (chanceToPouch >= 40 && chanceToPouch< 60) {
+    private static void damageToChanceToPouch(int chanceToPouch, int skillCat) {
+        if (chanceToPouch >= 50 && chanceToPouch< 60) {
             tempDamage = skillCat / 3;
-        } else if (chanceToPouch >= 60 && chanceToPouch < 80) {
+        } else if (chanceToPouch >= 60 && chanceToPouch < 97) {
             tempDamage = skillCat;
-        } else if (chanceToPouch >= 80 && chanceToPouch < 97) {
-            tempDamage = skillCat * 1.5;
         } else if (chanceToPouch >= 97) {
             tempDamage = skillCat * 3;
-        }
-        else {
-            System.out.println(catName + listDodgeText[random.nextInt(11)]);
-
         }
     }
     private static boolean endFightCat(int tempHpCat, int tempHpCat2, int skillFirstCat, int skillSecondCat, String nameFirstCat, String nameSecondCat) {
@@ -117,7 +120,7 @@ public class DaoUIText {
         infoTextList.add(2, "Wybierz, który z kotów stanie do walki: ");
         infoTextList.add(3, "Wybrano opcję dodaj kota\n");
         infoTextList.add(4, "Zajmiemy się tworzeniem nowego kota.\nZacznijmy od podania jego imienia: ");
-        infoTextList.add(5, "Doskonale! Dodajmy teraz numer umiejętności kota: ");
+        infoTextList.add(5, "Doskonale! Dodajmy teraz liczbę umiejętności kota: ");
         infoTextList.add(6, "Super, już tylko zostało nam wpisać wiek naszego futrzaka: ");
         infoTextList.add(7, """
                 Wprowadź 1, aby dodać kota.
