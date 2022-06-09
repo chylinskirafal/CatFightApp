@@ -1,6 +1,6 @@
 package pl.chylu;
 
-public class Main {
+public class FightCatsApp {
 
     public static void main(String[] args) throws Exception {
         DaoUIText.loadUIList();
